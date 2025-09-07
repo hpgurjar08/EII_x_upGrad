@@ -42,7 +42,7 @@ def upload_file():
 
         return jsonify(extracted_text=text)
 
-@app.route("/summarize", methods=['POST'])
+@app.route("/api/summarize", methods=['POST'])
 def summarize_content():
     content_to_process = get_content_from_request()
     summary_prompt = """
