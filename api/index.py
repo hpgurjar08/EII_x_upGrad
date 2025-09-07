@@ -15,7 +15,6 @@ def get_content_from_request():
 
 @app.route("/")
 def index():
-    return "Hi there"
     return jsonify(status="success", message="Welcome to the Kerna AI API!")
 
 @app.route("/upload", methods=['POST'])
