@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // REFERENCES & API URL 
-    const API_URL = "http://127.0.0.1:5000";
+    const API_URL = "/api";
     const textInput = document.getElementById("text-input");
     const fileInput = document.getElementById("file-input");
     const fileNameSpan = document.getElementById("file-name");
