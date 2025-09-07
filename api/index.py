@@ -13,7 +13,7 @@ def get_content_from_request():
         abort(400, description="Invalid input. Please provide text in the request body.")
     return data['text']
 
-@app.route("/")
+@app.route("/api")
 def index():
     return jsonify(status="success", message="Welcome to the Kerna AI API!")
 
