@@ -1,0 +1,325 @@
+/* Color Palette & Global Styles */
+:root {
+    --bg-color: #FFFFFF;
+    --bg-secondary-color: #F9FAFB;
+    --text-color: #1F2937;
+    --text-secondary-color: #6B7280;
+    --border-color: #E5E7EB;
+    --primary-color: #412653; /* Deep Purple */
+    --accent-color: #E0563F; /* Orange */
+    --accent-hover-color: #d14f38;
+    --shadow-color: rgba(65, 38, 83, 0.1);
+    --glow-color: rgba(224, 86, 63, 0.5);
+}
+
+body.dark-mode {
+    --bg-color: #111827;
+    --bg-secondary-color: #1F2937;
+    --text-color: #F9FAFB;
+    --text-secondary-color: #9CA3AF;
+    --border-color: #374151;
+    --primary-color: #D174D2; /* Magenta */
+    --shadow-color: rgba(0, 0, 0, 0.25);
+    --glow-color: rgba(224, 86, 63, 0.4);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-secondary-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    transition: background-color 0.3s, color 0.3s;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Interactive Cursor Glow */
+#cursor-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, var(--primary-color) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    z-index: -1;
+    pointer-events: none; /* Allows you to click through it */
+    opacity: 0.15;
+    filter: blur(50px);
+    transition: transform 0.15s ease-out; /* Smooths the movement */
+}
+
+/* Main Layout & Container */
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background: var(--bg-color);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px -5px var(--shadow-color);
+    transition: background-color 0.3s, border-color 0.3s;
+    animation: scaleIn 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+header, .intro-text, .input-area, .actions, #results-area {
+    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.intro-text { animation-delay: 0.1s; }
+.input-area { animation-delay: 0.2s; }
+.actions { animation-delay: 0.3s; }
+#results-area { animation-delay: 0.4s; }
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+}
+.intro-text {
+    font-size: 18px;
+    color: var(--text-secondary-color);
+    text-align: center;
+    margin-bottom: 30px;
+}
+.theme-switcher {
+    position: relative;
+}
+#theme-toggle {
+    display: none;
+}
+.slider {
+    display: block;
+    width: 50px;
+    height: 28px;
+    background-color: #ccc;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.slider:before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    width: 22px;
+    height: 22px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+#theme-toggle:checked + .slider {
+    background-color: var(--primary-color);
+}
+#theme-toggle:checked + .slider:before {
+    transform: translateX(21px);
+}
+
+/* Input Area */
+.input-area {
+    margin-bottom: 30px;
+}
+textarea, input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--bg-secondary-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 16px;
+    color: var(--text-color);
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; /* Updated */
+}
+
+textarea:hover, input[type="text"]:hover {
+    transform: translateY(-3px); /* Lifts the box up slightly */
+    box-shadow: 0 8px 20px -4px var(--shadow-color); /* Adds a soft shadow */
+}
+
+textarea:focus, input[type="text"]:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px var(--glow-color);
+}
+textarea {
+    min-height: 160px;
+    resize: vertical;
+}
+.separator {
+    text-align: center;
+    font-weight: 600;
+    color: var(--text-secondary-color);
+    margin: 15px 0;
+}
+.file-upload-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+    transition: border-color 0.3s;
+}
+.file-upload-area:hover {
+    border-color: var(--primary-color);
+}
+.file-label {
+    background-color: var(--bg-secondary-color);
+    border: 1px solid var(--border-color);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.file-label:hover {
+    background-color: var(--border-color);
+}
+#file-name {
+    color: var(--text-secondary-color);
+    font-size: 14px;
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* Action Buttons */
+.actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 40px;
+}
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.3s;
+}
+button:hover {
+    background-color: var(--accent-hover-color);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px -5px var(--glow-color);
+}
+button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px -3px var(--glow-color);
+}
+button svg {
+    width: 20px;
+    height: 20px;
+}
+/* Results Area & Animations */
+#results-area {
+    background-color: var(--bg-secondary-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 25px;
+    min-height: 150px;
+}
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+#results-area h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-secondary-color);
+}
+.result-actions {
+    display: flex;
+    gap: 10px;
+}
+.result-actions button {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary-color);
+    padding: 6px 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.result-actions button:hover {
+    color: var(--text-color);
+    background-color: var(--bg-secondary-color);
+    border-color: var(--text-secondary-color);
+    transform: translateY(-2px);
+    box-shadow: none;
+}
+.result-actions button svg {
+    width: 16px;
+    height: 16px;
+}
+#output-text {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text-color);
+    animation: fadeIn 0.5s ease-in-out;
+}
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: var(--primary-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+/* Keyframe Animations */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/*  Responsiveness */
+@media (max-width: 600px) {
+    body { padding: 10px; }
+    .container { padding: 20px; }
+    .actions { grid-template-columns: 1fr; }
+    header h1 { font-size: 20px; }
+}

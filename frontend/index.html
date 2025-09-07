@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forge AI</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="cursor-glow"></div>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="var(--primary-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 17L12 22L22 17" stroke="var(--primary-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12L12 17L22 12" stroke="var(--primary-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <h1>Forge AI</h1>
+            </div>
+            <div class="theme-switcher">
+                <input type="checkbox" id="theme-toggle">
+                <label for="theme-toggle" class="slider"></label>
+            </div>
+        </header>
+        <main>
+            <p class="intro-text">Save time creating your course materials.</p>
+            <div class="input-area">
+                <textarea id="text-input" placeholder="Paste your lecture transcript or long text here..."></textarea>
+                <p class="separator">OR</p>
+                <div class="file-upload-area">
+                    <input type="file" id="file-input" accept=".pdf,.docx" hidden>
+                    <label for="file-input" class="file-label">Choose a PDF or DOCX file</label>
+                    <span id="file-name">No file selected</span>
+                </div>
+            </div>
+            <div class="actions">
+                <button data-endpoint="summarize"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" /></svg>Summarize</button>
+                <button data-endpoint="generate-quiz"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" /></svg>Generate Quiz</button>
+                <button data-endpoint="generate-flashcards"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V4z" /></svg>Create Flashcards</button>
+                <button data-endpoint="translate"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7 2a1 1 0 011 1v1h3a1 1 0 110 2H9.578a18.87 18.87 0 01-1.724 4.78c.29.354.566.696.828 1.022a1 1 0 01-1.706 1.138 19.902 19.902 0 00-3.328-4.288 1 1 0 01.27-1.34l.004-.003 3.018-2.684a1 1 0 011.232.128l.004.005.012.014a1 1 0 01.128 1.232l-.004-.005-1.57 1.396a17.024 17.024 0 001.282 2.463 1 1 0 11-1.732 1c-.322-.592-.627-1.205-.91-1.833a17.03 17.03 0 01-1.432-3.82 1 1 0 01.98-1.128H7V2zM12 1a1 1 0 100 2h1v1h-1a1 1 0 100 2h1v1h-1a1 1 0 100 2h1v1h-1a1 1 0 100 2h1v1h-1a1 1 0 100 2h3a1 1 0 100-2h-1v-1h1a1 1 0 100-2h-1v-1h1a1 1 0 100-2h-1v-1h1a1 1 0 100-2h-3z" clip-rule="evenodd" /></svg>Translate</button>
+            </div>
+            <div id="results-area">
+                <div class="result-header">
+                    <h2>Results</h2>
+                    <div class="result-actions" style="display: none;">
+                        <button id="copy-button" title="Copy to Clipboard"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M7 2a1 1 0 011 1v1H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V6a2 2 0 00-2-2h-2V3a1 1 0 01-1-1H7zM6 6h8v10H6V6z" /></svg><span>Copy</span></button>
+                        <button id="download-button" title="Download as .txt"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 9.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 7.414V13a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" /></svg><span>Download</span></button>
+                    </div>
+                </div>
+                <div class="spinner-container" id="loading-spinner" style="display: none;"><div class="spinner"></div></div>
+                <pre id="output-text"></pre>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
