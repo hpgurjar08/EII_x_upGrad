@@ -13,11 +13,11 @@ def get_content_from_request():
         abort(400, description="Invalid input. Please provide text in the request body.")
     return data['text']
 
-@app.route("/")
+@app.route("/api", methods=['GET'])
 def home():
     return jsonify(status="success", message="Welcome to the Kerna AI API!")
 
-@app.route("/upload", methods=['POST'])
+@app.route("/api/upload", methods=['POST'])
 def upload_file():
     """Handles PDF and DOCX file uploads and extracts text."""
     if 'file' not in request.files:
@@ -42,7 +42,7 @@ def upload_file():
 
         return jsonify(extracted_text=text)
 
-@app.route("/summarize", methods=['POST'])
+@app.route("/api/summarize", methods=['POST'])
 def summarize_content():
     content_to_process = get_content_from_request()
     summary_prompt = """
@@ -61,7 +61,7 @@ def summarize_content():
     summary_result = generate_content_from_gemini(prompt=summary_prompt, original_text=content_to_process)
     return jsonify(result=summary_result)
 
-@app.route("/translate", methods=['POST'])
+@app.route("/api/translate", methods=['POST'])
 def translate_content():
     language = request.args.get('language', 'Hindi') 
     content_to_process = get_content_from_request()
@@ -79,7 +79,7 @@ def translate_content():
     translation_result = generate_content_from_gemini(prompt=translation_prompt, original_text=content_to_process)
     return jsonify(result=translation_result)
 
-@app.route("/generate-quiz", methods=['POST'])
+@app.route("/api/generate-quiz", methods=['POST'])
 def create_quiz():
     content_to_process = get_content_from_request()
     quiz_prompt = """
@@ -94,7 +94,7 @@ def create_quiz():
     quiz_result = generate_content_from_gemini(prompt=quiz_prompt, original_text=content_to_process)
     return jsonify(result=quiz_result)
 
-@app.route("/generate-flashcards", methods=['POST'])
+@app.route("/api/generate-flashcards", methods=['POST'])
 def create_flashcards():
     content_to_process = get_content_from_request()
     flashcard_prompt = """
