@@ -2,7 +2,7 @@
 import google.generativeai as genai
 
 # Import our securely loaded API_KEY from the config file.
-from core.config import API_KEY
+from api.core.config import API_KEY
 
 # Service Setup 
 # This line configures the library with your API key.
